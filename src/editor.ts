@@ -3,18 +3,18 @@ import { LitElement, html, TemplateResult, css, CSSResultGroup } from 'lit';
 import { HomeAssistant, fireEvent, LovelaceCardEditor } from 'custom-card-helpers';
 
 import { ScopedRegistryHost } from '@lit-labs/scoped-registry-mixin';
-import { BoilerplateCardConfig } from './types';
+import { SojjoAirQualityCardConfig } from './types';
 import { customElement, property, state } from 'lit/decorators';
 import { formfieldDefinition } from '../elements/formfield';
 import { selectDefinition } from '../elements/select';
 import { switchDefinition } from '../elements/switch';
 import { textfieldDefinition } from '../elements/textfield';
 
-@customElement('boilerplate-card-editor')
-export class BoilerplateCardEditor extends ScopedRegistryHost(LitElement) implements LovelaceCardEditor {
+@customElement('sojjoairquality-card-editor')
+export class SojjoAirQualityCardEditor extends ScopedRegistryHost(LitElement) implements LovelaceCardEditor {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
-  @state() private _config?: BoilerplateCardConfig;
+  @state() private _config?: SojjoAirQualityCardConfig;
 
   @state() private _helpers?: any;
 
@@ -27,7 +27,7 @@ export class BoilerplateCardEditor extends ScopedRegistryHost(LitElement) implem
     ...formfieldDefinition,
   };
 
-  public setConfig(config: BoilerplateCardConfig): void {
+  public setConfig(config: SojjoAirQualityCardConfig): void {
     this._config = config;
 
     this.loadCardHelpers();
@@ -85,20 +85,6 @@ export class BoilerplateCardEditor extends ScopedRegistryHost(LitElement) implem
         .configValue=${'name'}
         @input=${this._valueChanged}
       ></mwc-textfield>
-      <mwc-formfield .label=${`Toggle warning ${this._show_warning ? 'off' : 'on'}`}>
-        <mwc-switch
-          .checked=${this._show_warning !== false}
-          .configValue=${'show_warning'}
-          @change=${this._valueChanged}
-        ></mwc-switch>
-      </mwc-formfield>
-      <mwc-formfield .label=${`Toggle error ${this._show_error ? 'off' : 'on'}`}>
-        <mwc-switch
-          .checked=${this._show_error !== false}
-          .configValue=${'show_error'}
-          @change=${this._valueChanged}
-        ></mwc-switch>
-      </mwc-formfield>
     `;
   }
 
