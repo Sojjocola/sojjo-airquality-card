@@ -5,7 +5,6 @@ Home Assistant Lovelace custom cards for Air Quality Sensor like Aqara TVOC
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
 
-[![GitHub Activity][commits-shield]][commits]
 
 
 ## Options
