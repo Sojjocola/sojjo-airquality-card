@@ -61,7 +61,6 @@ export class SojjoAirQualityCard extends LitElement {
     }
 
     this.config = {
-      name: 'SojjoAirQuality',
       ...config,
     };
   }
@@ -86,9 +85,10 @@ export class SojjoAirQualityCard extends LitElement {
       return this._showError(localize('common.show_error'));
     }
 
+    const covValue = +(this.hass.states[`${this.config?.entity}`].state);
+
     return html`
       <ha-card
-        .header=${this.config.name}
         @action=${this._handleAction}
         .actionHandler=${actionHandler({
           hasHold: hasAction(this.config.hold_action),
@@ -96,7 +96,28 @@ export class SojjoAirQualityCard extends LitElement {
         })}
         tabindex="0"
         .label=${`SojjoAirQuality: ${this.config.entity || 'No Entity Defined'}`}
-      ></ha-card>
+      >
+      <div class="cov-container">
+        <div class="cov-column">
+          <div class="leaf-items">
+            ${this.getCovLeafDisplay(covValue)}
+          </div>
+          <div class="cov-message">
+            <span>${this.getCovLabel(covValue)}</span>
+          </div>
+        </div>
+        <div class="cov-column">
+          <div class="cov-display">
+            <div class="cov-value">
+              ${covValue}
+              <span class="cov-unit">
+                ppb
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ha-card>
     `;
   }
 
@@ -123,6 +144,171 @@ export class SojjoAirQualityCard extends LitElement {
 
   // https://lit.dev/docs/components/styles/
   static get styles(): CSSResultGroup {
-    return css``;
+    return css`
+      .cov-container {
+        display:flex;
+        flex-direction: row;
+        padding: 10px;
+      }
+      .cov-column {
+        display:flex;
+        flex-direction: column;
+      }
+      .leaf-items {
+        display: flex;
+        flex-direction: row;
+      }
+      .leaf-green {
+        color:green;
+      }
+      .cov-display {
+        margin: 10px;
+        text-align: center;
+      }
+      .cov-value {
+        font-size: 4em;
+        font-weight:300;
+        color:var(--primary-text-color);
+      }
+      .cov-unit {
+        font-size: 1.5em;
+        font-weight:300;
+        color:var(--secondary-text-color);
+      }
+    `;
+  }
+
+  private getCovLeafDisplay(covValue: number) {
+    const leafIcon = "mdi:leaf";
+    if (covValue < 150) {
+      return html`
+       <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}> <ha-icon/>
+      </div>
+      `;
+    } else if (covValue >= 150 && covValue < 350) {
+      return html`
+       <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon=${leafIcon}><ha-icon/>
+      </div>
+      `;
+    } else if (covValue >= 350 && covValue < 660) {
+      return html`
+       <div class="leaf-item leaf-green">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item">
+        <ha-icon .icon="mdi:leaf leaf-grey"><ha-icon/>
+      </div>
+      <div class="leaf-item">
+        <ha-icon .icon="mdi:leaf leaf-grey"><ha-icon/>
+      </div>
+      `;
+    } else if (covValue >= 660 && covValue < 2200) {
+      return html`
+       <div class="leaf-item leaf-green">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-green">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      `;
+    }  else if (covValue >= 2200 && covValue < 5500) {
+      return html`
+       <div class="leaf-item leaf-green">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      `;
+    } else {
+      return html`
+       <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      <div class="leaf-item leaf-grey">
+        <ha-icon .icon="mdi:leaf"><ha-icon/>
+      </div>
+      `;
+    }
+  }
+
+  private getCovLabel(covValue: number): string {
+
+    let returnValue = "";
+
+    if (covValue < 150) {
+      returnValue = "Excellent: Air Ok!";
+    } else if (covValue >= 150 && covValue < 350) {
+      returnValue = "Correct : Aération ou ventilation recommandée";
+    } else if (covValue >= 350 && covValue < 660) {
+      returnValue = "Moyen : Ventilation intensifiée recommandée";
+    } else if (covValue >= 660 && covValue < 2200) {
+      returnValue = "Mauvais: Aération ou ventilation nécessaire";
+    }  else if (covValue >= 2200 && covValue < 5500) {
+      returnValue = "Danger pour la santé : Ventilation intensifiée nécessaire";
+    } else {
+      returnValue = "X : Quitter la zone!!!";
+    }
+
+    return returnValue;
   }
 }
