@@ -4,5 +4,13 @@
     "invalid_configuration": "Invalid configuration",
     "show_warning": "Show Warning",
     "show_error": "Show Error"
+  },
+  "airquality": {
+    "level1": "",
+    "level2": "toto en",
+    "level3": "",
+    "level4": "",
+    "level5": "",
+    "level6": ""
   }
 }

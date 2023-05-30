@@ -3,5 +3,13 @@
     "version": "Versjon",
     "invalid_configuration": "Ikke gyldig konfiguration",
     "show_warning": "Vis advarsel"
+  }, 
+  "airquality": {
+    "level1": "",
+    "level2": "toto nb",
+    "level3": "",
+    "level4": "",
+    "level5": "",
+    "level6": ""
   }
 }
