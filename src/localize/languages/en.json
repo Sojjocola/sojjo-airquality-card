@@ -6,11 +6,11 @@
     "show_error": "Show Error"
   },
   "airquality": {
-    "level1": "",
-    "level2": "toto en",
-    "level3": "",
-    "level4": "",
-    "level5": "",
-    "level6": ""
+    "level1": "Healthy air",
+    "level2": "Ventilation is recommended",
+    "level3": "Intensified ventilation is recommended",
+    "level4": "Ventilation is required",
+    "level5": "Intensified ventilation is required",
+    "level6": "Beware Danger!"
   }
 }

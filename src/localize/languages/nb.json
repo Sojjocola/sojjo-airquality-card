@@ -5,11 +5,11 @@
     "show_warning": "Vis advarsel"
   }, 
   "airquality": {
-    "level1": "",
-    "level2": "toto nb",
-    "level3": "",
-    "level4": "",
-    "level5": "",
-    "level6": ""
+    "level1": "Sund luft",
+    "level2": "Anbefalet ventilation",
+    "level3": "Intensiveret ventilation anbefales",
+    "level4": "Ventilation kræves",
+    "level5": "Intensiveret ventilation påkrævet",
+    "level6": "Pas på fare!"
   }
 }

@@ -104,7 +104,7 @@ export class SojjoAirQualityCard extends LitElement {
             ${this.getCovLeafDisplay(covValue)}
           </div>
           <div class="cov-message">
-            <span>${this.getCovLabel(covValue)}</span>
+            <span>" ${this.getCovLabel(covValue)} "</span>
           </div>
         </div>
         <div class="cov-column w-30">
@@ -185,6 +185,10 @@ export class SojjoAirQualityCard extends LitElement {
         font-size: 0.5em;
         font-weight:300;
         color:var(--secondary-text-color);
+      }
+      .cov-message {
+        color:var(--primary-text-color);
+        font-weight: 500;
       }
     `;
   }

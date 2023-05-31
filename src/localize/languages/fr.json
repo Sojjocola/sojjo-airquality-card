@@ -6,11 +6,11 @@
       "show_error": "Afficher les erreurs"
     },
     "airquality": {
-        "level1": "Air Ok!",
+        "level1": "Air sain",
         "level2": "Aération ou ventilation recommandée",
         "level3": "Ventilation intensifiée recommandée",
         "level4": "Aération ou ventilation nécessaire",
         "level5": "Ventilation intensifiée nécessaire",
-        "level6": "Danger"
+        "level6": "Attention Danger!"
     }
   }
