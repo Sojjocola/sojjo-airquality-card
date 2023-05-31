@@ -43,6 +43,6 @@ name: Séjour
 ```
 
 ## 
-[license-shield]: https://img.shields.io/github/license/sojjo-airquality-card/sojjo-airquality-card.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/sojjo-airquality-card/sojjo-airquality-card.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/Sojjocola/sojjo-airquality-card.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/Sojjocola/sojjo-airquality-card.svg?style=for-the-badge
 [releases]: https://github.com/Sojjocola/sojjo-airquality-card/releases
