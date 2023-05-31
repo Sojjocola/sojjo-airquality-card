@@ -87,7 +87,7 @@ export class SojjoAirQualityCard extends LitElement {
 
     const iconInformation = "mdi:information-outline";
     const covValue = +(this.hass.states[`${this.config?.entity}`].state);
-
+    const batteryValue = +(this.hass.states[`${this.config?.battery_entity}`]?.state ?? '-1');
     return html`
       <ha-card
         @action=${this._handleAction}
@@ -98,6 +98,7 @@ export class SojjoAirQualityCard extends LitElement {
         tabindex="0"
         .label=${`SojjoAirQuality: ${this.config.entity || 'No Entity Defined'}`}
       >
+      ${this.getHeader(this.config.name)}
       <div class="cov-container">
         <div class="cov-column w-70">
           <div class="leaf-items">
@@ -116,6 +117,9 @@ export class SojjoAirQualityCard extends LitElement {
               </span>
             </div>
           </div>
+        </div>
+        <div class="battery-indicator">
+          ${this.getBatteryIndicator(batteryValue)}
         </div>
       </div>
     </ha-card>
@@ -156,6 +160,7 @@ export class SojjoAirQualityCard extends LitElement {
         display:flex;
         flex-direction: row;
         padding: 10px;
+        margin: 10px;
       }
       .cov-column {
         display:flex;
@@ -190,8 +195,35 @@ export class SojjoAirQualityCard extends LitElement {
         color:var(--primary-text-color);
         font-weight: 500;
       }
+      .battery-indicator {
+        position: absolute;
+        top:5px;
+        right:5px;
+        opacity: 0.4;
+        --mdc-icon-size:20px;
+      }
+      .sojjo-header {
+        margin-left: 12px;
+        margin-top: 10px;
+        margin-bottom: -10px;
+        font-size: 1.1em;
+        color: var(--secondary-text-color);
+        font-weight: 300;
+      }
     `;
   }
+
+private getHeader(title?: string){
+  if(title){
+    return html`
+      <div class="sojjo-header">
+        ${title}
+      </div>
+    `;
+  }else {
+    return html``;
+  }
+}
 
   private getCovLeafDisplay(covValue: number) {
     const leafIcon = "mdi:leaf";
@@ -309,7 +341,6 @@ export class SojjoAirQualityCard extends LitElement {
   private getCovLabel(covValue: number): string {
 
     const lang = this.hass.selectedLanguage || this.hass.language;
-    console.log(lang);
     let returnValue = "";
 
     if (covValue < 150) {
@@ -327,5 +358,23 @@ export class SojjoAirQualityCard extends LitElement {
     }
 
     return returnValue;
+  }
+
+  private getBatteryIndicator(value: number) {
+    
+    let iconRef = "mdi:battery-unknown";
+    if(value == -1){
+      return html``;
+    } else if(value < 10) {
+      iconRef = "mdi:battery-20";
+    } else if(value >=10 && value < 50) {
+      iconRef = "mdi:battery-50";
+    } else if(value >= 50){
+      iconRef = "mdi:battery";
+    }
+
+    return html`
+      <ha-icon .icon=${iconRef}></ha-icon>
+    `;
   }
 }
